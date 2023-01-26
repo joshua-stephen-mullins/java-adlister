@@ -6,19 +6,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@WebServlet(name= "ViewCountServlet", urlPatterns = "/count")
+public class ViewCountServlet extends HttpServlet {
 
-@WebServlet(name = "HelloWorldServlet", urlPatterns = "/hello")
-public class HelloWorldServlet extends HttpServlet {
+    private int counter = 0;
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-        String name = req.getParameter("name");
+        String reset = req.getParameter("reset");
 
-        if (name != null){
-            out.println("<h1>Hello, " + name + "!</h1>");
+        if (reset != null){
+            counter = 0;
         } else {
-            out.println("<h1>Hello, World!</h1>");
+            counter++;
         }
+
+        out.println("<h5>Site Visits: " + counter + "</h5>");
     }
 }

@@ -6,19 +6,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@WebServlet(name= "ServletTest", urlPatterns = "/big-serve")
+public class ServletTest extends HttpServlet {
 
-@WebServlet(name = "HelloWorldServlet", urlPatterns = "/hello")
-public class HelloWorldServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        String name = req.getParameter("name");
+        PrintWriter writer = resp.getWriter();
 
-        if (name != null){
-            out.println("<h1>Hello, " + name + "!</h1>");
-        } else {
-            out.println("<h1>Hello, World!</h1>");
-        }
+
+        String favColor = req.getParameter("color");
+
+        writer.println("<h1 style='color: " +  favColor + "'>Hello Self!</h1>");
+
+        String favFood = req.getParameter("food");
+
+        writer.println("<h2>A good food is " + favFood + "!</h2>");
+
     }
 }
